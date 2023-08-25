@@ -1,0 +1,77 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    /* Öğeleri yatay olarak boşluk bırakarak yerleştirir */
+    align-items: center;
+    /* Öğeleri dikeyde ortalar */
+    background-color: rgb(164, 0, 0);
+
+}
+
+.header {
+    margin-left: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    /* Öğeleri dikeyde ortalar */
+}
+
+.header h2{
+    color: white;
+}
+
+.headerLogo {
+    cursor: pointer;
+}
+
+.queryButton,
+.addButton {
+    background-color: rgb(71, 71, 71);
+    color: aliceblue;
+    border-radius: 15%;
+    cursor: pointer;
+}
+
+.profile-button {
+    margin-right: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+}
+
+.userName {
+    display: flex;
+    justify-content: center;
+    /* Öğeleri yatay olarak boşluk bırakarak yerleştirir */
+    align-items: center;
+    /* Öğeleri dikeyde ortalar */
+    gap: 10px;
+    cursor: pointer;
+}
+
+.otherInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.dropdown{
+    margin-right: 10px;
+}
+
+.headerLogo{
+    border-radius: 5%;
+}
+
+.page-footer{
+    background-color: rgb(164, 0, 0);
+}
+
+.page-footer a{
+    color: white;
+}
