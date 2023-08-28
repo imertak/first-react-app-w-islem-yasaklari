@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useToken } from "../contexts/TokenContext";
 
 function Login() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const { token, changeToken } = useToken();
+  
 
   const handleMouseClickedRegister = () => {
     window.location.href = "http://localhost:3000/kayit-ol";
   };
-
+  
   const handleLogin = async () => {
     console.log("Giriş işlemi ");
+
     let response = await fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: {
@@ -23,11 +26,10 @@ function Login() {
         password: password,
       }),
     });
+   
     const data = await response.json();
+    changeToken(data.accessToken);
     console.log(data.accessToken);
-    console.log(data.tokenType);
-    console.log(data);
-    setToken(data.accessToken);
     console.log(token);
   };
 
@@ -39,7 +41,7 @@ function Login() {
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="basic-addon1">
-              @
+              Kullanıcı Adı:
             </span>
           </div>
           <input
@@ -56,11 +58,11 @@ function Login() {
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="basic-addon1">
-              $
+              Parola:
             </span>
           </div>
           <input
-            type="text"
+            type="password"
             className="form-control"
             placeholder="Password"
             aria-label="Password"

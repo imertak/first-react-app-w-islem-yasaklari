@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 3000);
+    }, 2500);
 
     return () => {
       clearInterval(interval);

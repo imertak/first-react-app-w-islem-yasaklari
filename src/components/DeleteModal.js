@@ -11,7 +11,8 @@ function DeleteModal(props) {
   const handleClickedSave = async(unvan) =>{
     console.log(unvan);
     try {
-      const response = await fetch(`http://localhost:8080/api/delete/${unvan}`,{method:"DELETE"});
+      const url = `http://localhost:8080/api/delete/${unvan}`;
+      const response = await fetch(url,{method:"DELETE"});
 
       if (!response.ok) {
         throw new Error("Bir hata oluştu."); // İsteğin başarısız olduğu durumlar için hata fırlatma
@@ -35,12 +36,12 @@ function DeleteModal(props) {
         <Modal.Header closeButton>
           <Modal.Title>Sil</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.unvan} Kişisi Silinsin Mi?</Modal.Body>
+        <Modal.Body>{props.unvan} Kişisini Silmek İstediğinize Emin Misiniz?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             İptal
           </Button>
-          <Button variant="primary" onClick={() => handleClickedSave(props.unvan)}>
+          <Button variant="primary" onClick={() => handleClickedSave(props.unvan )}>
             Sil
           </Button>
         </Modal.Footer>
