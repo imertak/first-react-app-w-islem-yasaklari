@@ -7,7 +7,8 @@ const TokenContext = createContext();
 const TokenProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isVerifyLogin, setIsVerifyLogin] = useState(false);
-  console.log("token bu", token);
+  const [assessmentResult, setAssessmentResult] = useState(false);
+
   const changeToken = (newToken) => {
     setToken(newToken);
   };
@@ -16,9 +17,20 @@ const TokenProvider = ({ children }) => {
     setIsVerifyLogin(true);
   };
 
+  const changeAssestmentResult = () => {
+    setAssessmentResult(true);
+  };
+
   return (
     <TokenContext.Provider
-      value={{ token, changeToken, isVerifyLogin, changeIsVerifyLogin }}
+      value={{
+        token,
+        changeToken,
+        isVerifyLogin,
+        changeIsVerifyLogin,
+        assessmentResult,
+        changeAssestmentResult,
+      }}
     >
       {children}
     </TokenContext.Provider>

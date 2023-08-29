@@ -8,7 +8,7 @@ import ReCaptchaComponent from "../components/ReCaptchaComponent";
 function Login() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { changeToken } = useContext(TokenContext);
+  const { changeToken, assessmentResult } = useContext(TokenContext);
 
   const handleMouseClickedRegister = () => {
     window.location.href = "http://localhost:3000/kayit-ol";
@@ -82,7 +82,12 @@ function Login() {
           <ReCaptchaComponent></ReCaptchaComponent>
         </div>
 
-        <button className="btn btn-primary" type="submit" onClick={handleLogin}>
+        <button
+          disabled={!assessmentResult}
+          className="btn btn-primary"
+          type="submit"
+          onClick={handleLogin}
+        >
           <WelcomeModal userName={userName}></WelcomeModal>
         </button>
         <Link onClick={handleMouseClickedRegister}>Kayit Ol</Link>
