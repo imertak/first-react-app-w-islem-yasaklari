@@ -1,21 +1,28 @@
-import React, { createContext, useContext, useState } from 'react';
+// TokenContext.js
+
+import React, { createContext, useState } from "react";
 
 const TokenContext = createContext();
 
-export function TokenProvider({ children }) {
-    const [token, setToken] = useState("");
+const TokenProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
+  const [isVerifyLogin, setIsVerifyLogin] = useState(false);
+  console.log("token bu", token);
+  const changeToken = (newToken) => {
+    setToken(newToken);
+  };
 
-    const changeToken = newToken => {
-        setToken(newToken);
-    };
+  const changeIsVerifyLogin = () => {
+    setIsVerifyLogin(true);
+  };
 
-    return (
-        <TokenContext.Provider value={{ token, changeToken }}>
-            {children}
-        </TokenContext.Provider>
-    )
-}
+  return (
+    <TokenContext.Provider
+      value={{ token, changeToken, isVerifyLogin, changeIsVerifyLogin }}
+    >
+      {children}
+    </TokenContext.Provider>
+  );
+};
 
-export function useToken() {
-    return useContext(TokenContext);
-}
+export { TokenContext, TokenProvider };

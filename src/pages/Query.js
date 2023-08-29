@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react"; // useState ve useEffect'ü içe aktar
+import React, { useState, useEffect, useContext } from "react"; // useState ve useEffect'ü içe aktar
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
-import {useToken } from "../contexts/TokenContext";
-
+import { TokenContext } from "../contexts/TokenContext";
+import LoginAlert from "../components/LoginAlert";
 
 function Query() {
   const [users, setUsers] = useState([]);
-  const {token} = useToken();
-
+  const { token, isVerifyLogin, changeIsVerifyLogin } =
+    useContext(TokenContext);
 
   useEffect(() => {
     const fetchData = async () => {
-  
       console.log(token);
-
+      if (token) {
+        changeIsVerifyLogin();
+      }
+      console.log(isVerifyLogin);
       try {
         const response = await fetch("http://localhost:8080/api/get-db", {
           headers: {
@@ -25,43 +27,48 @@ function Query() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setUsers(data);
+        setUsers(data); // Burada setUsers'ı nasıl aldığınıza dikkat edin
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
-    fetchData(); 
-  }, []); // Boş bağımlılık dizisi, sadece bir kez çağrılmasını sağlar
+    fetchData();
+  }, [token]);
 
   return (
-    <div className="IslemYasaklari">
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Unvan</th>
-            <th scope="col">MKK Sicil No</th>
-            <th scope="col">Kurul Karar Tarihi</th>
-            <th scope="col">Kurul Karar No</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, i) => (
-            <tr key={i}>
-              <th scope="row">{user.unvan}</th>
-              <td>{user.mkkSicilNo}</td>
-              <td>{user.kurulKararTarihi}</td>
-              <td>{user.kurulKararNo}</td>
-              <td>
-                <DeleteModal unvan={user.unvan}></DeleteModal>
-              </td>
-              <td>
-                <UpdateModal unvan={user.unvan}></UpdateModal>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      {isVerifyLogin ? (
+        <div className="IslemYasaklari">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Unvan</th>
+                <th scope="col">MKK Sicil No</th>
+                <th scope="col">Kurul Karar Tarihi</th>
+                <th scope="col">Kurul Karar No</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, i) => (
+                <tr key={i}>
+                  <th scope="row">{user.unvan}</th>
+                  <td>{user.mkkSicilNo}</td>
+                  <td>{user.kurulKararTarihi}</td>
+                  <td>{user.kurulKararNo}</td>
+                  <td>
+                    <DeleteModal unvan={user.unvan}></DeleteModal>
+                  </td>
+                  <td>
+                    <UpdateModal unvan={user.unvan}></UpdateModal>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <LoginAlert></LoginAlert>
+      )}
     </div>
   );
 }

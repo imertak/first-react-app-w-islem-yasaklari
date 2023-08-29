@@ -75,3 +75,14 @@
 .page-footer a{
     color: white;
 }
+
+.query-link,
+.add-link,
+.profile-link{
+    color: white; /* Metin rengini istediğiniz renkle değiştirin */
+    text-decoration: none;
+}
+
+.logo-text{
+    color: white;
+}
