@@ -15,6 +15,7 @@ function Login() {
   };
 
   const handleLogin = () => {
+    
     console.log("Giriş işlemi");
     fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
@@ -89,7 +90,7 @@ function Login() {
           onClick={handleLogin}
         >
           <WelcomeModal userName={userName}></WelcomeModal>
-        </button>
+          </button>
         <Link onClick={handleMouseClickedRegister}>Kayit Ol</Link>
       </div>
     </div>

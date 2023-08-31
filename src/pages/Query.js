@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"; // useState ve useEffect'ü içe aktar
+import React, { useEffect, useContext } from "react";
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
@@ -6,32 +6,9 @@ import { TokenContext } from "../contexts/TokenContext";
 import LoginAlert from "../components/LoginAlert";
 
 function Query() {
-  const [users, setUsers] = useState([]);
-  const { token, isVerifyLogin, changeIsVerifyLogin } =
-    useContext(TokenContext);
+  const { token, isVerifyLogin, users, fetchData } = useContext(TokenContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log(token);
-      if (token) {
-        changeIsVerifyLogin();
-      }
-      console.log(isVerifyLogin);
-      try {
-        const response = await fetch("http://localhost:8080/api/get-db", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setUsers(data); // Burada setUsers'ı nasıl aldığınıza dikkat edin
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, [token]);
 
@@ -46,6 +23,8 @@ function Query() {
                 <th scope="col">MKK Sicil No</th>
                 <th scope="col">Kurul Karar Tarihi</th>
                 <th scope="col">Kurul Karar No</th>
+                <th scope="col">Pay</th>
+                <th scope="col">Pay Kodu</th>
               </tr>
             </thead>
             <tbody>
@@ -55,11 +34,13 @@ function Query() {
                   <td>{user.mkkSicilNo}</td>
                   <td>{user.kurulKararTarihi}</td>
                   <td>{user.kurulKararNo}</td>
+                  <td>{user.pay}</td>
+                  <td>{user.payKodu}</td>
                   <td>
-                    <DeleteModal unvan={user.unvan}></DeleteModal>
+                    <DeleteModal user={user}></DeleteModal>
                   </td>
                   <td>
-                    <UpdateModal unvan={user.unvan}></UpdateModal>
+                    <UpdateModal user={user}></UpdateModal>
                   </td>
                 </tr>
               ))}

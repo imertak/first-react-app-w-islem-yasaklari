@@ -25,7 +25,12 @@ function WelcomeModal(props) {
             İptal
           </Button>
           <Button variant="primary" onClick={() => handleClickedSave()}>
-            <Link to={"/sorgula"}>Git</Link>
+            <Link
+              to={"/sorgula"}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Git
+            </Link>
           </Button>
         </Modal.Footer>
       </Modal>
