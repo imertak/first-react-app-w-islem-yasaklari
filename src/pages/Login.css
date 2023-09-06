@@ -1,0 +1,27 @@
+.body
+{
+    padding: 10px;
+    background-color:rgb(0, 4, 44);
+    width: 550px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    height: 100vh; 
+    gap: 5px;
+    position:relative;
+    top: 50%;
+    left: 33%;
+}
+.socialMediaIcons{
+    display: flex;
+    gap: 5px;
+    color: aliceblue;
+}
+
+.body h2 {
+    color: white;
+    text-shadow: 2px 2px 4px #9a9a9a;
+}

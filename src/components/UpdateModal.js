@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { TokenContext } from "../contexts/TokenContext";
 
 function UpdateModal(props) {
   const [show, setShow] = useState(false);
@@ -12,6 +11,7 @@ function UpdateModal(props) {
   const handleShow = () => setShow(true);
 
   const handleClickedUpdateSave = async (newUnvan, user) => {
+    handleClose();
     try {
       const response = await fetch(
         `http://localhost:8080/api/update/${user.unvan}`,

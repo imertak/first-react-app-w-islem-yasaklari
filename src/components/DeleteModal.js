@@ -10,8 +10,7 @@ function DeleteModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleClickedSave = async (user) => {
-    fetchData();
+  const handleClickedDelete = async (user) => {
     try {
       const url = `http://localhost:8080/api/delete/${user.unvan}`;
       const response = await fetch(url, {
@@ -26,6 +25,7 @@ function DeleteModal(props) {
     } catch (error) {
       console.error("İsteğin gönderilmesi sırasında hata oluştu:", error);
     }
+    fetchData();
     handleClose();
   };
 
@@ -40,7 +40,7 @@ function DeleteModal(props) {
           <Modal.Title>Sil</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {props.unvan} Kişisini Silmek İstediğinize Emin Misiniz?
+          {props.user.unvan} Kişisini Silmek İstediğinize Emin Misiniz?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -48,7 +48,7 @@ function DeleteModal(props) {
           </Button>
           <Button
             variant="primary"
-            onClick={() => handleClickedSave(props.user)}
+            onClick={() => handleClickedDelete(props.user)}
           >
             Sil
           </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
@@ -6,11 +6,11 @@ import { TokenContext } from "../contexts/TokenContext";
 import LoginAlert from "../components/LoginAlert";
 
 function Query() {
-  const { token, isVerifyLogin, users, fetchData } = useContext(TokenContext);
+  const { isVerifyLogin, users, fetchData } = useContext(TokenContext);
 
   useEffect(() => {
     fetchData();
-  }, [token]);
+  }, []);
 
   return (
     <div>
@@ -25,6 +25,8 @@ function Query() {
                 <th scope="col">Kurul Karar No</th>
                 <th scope="col">Pay</th>
                 <th scope="col">Pay Kodu</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -48,41 +50,10 @@ function Query() {
           </table>
         </div>
       ) : (
-        <LoginAlert></LoginAlert>
+        <LoginAlert value={"Sorgulama"}></LoginAlert>
       )}
     </div>
   );
 }
 
 export default Query;
-//<Persons
-//  unvan={user.unvan}
-//  mkkSicilNo={user.mkkSicilNo}
-//  kurulKararTarihi={user.kurulKararTarihi}
-//  kurulKararNo={user.kurulKararNo}
-//  payKodu={user.payKodu}
-//  pay={user.pay}
-///>;
-
-//try {
-//  const response = await fetch(`http://localhost:8080/api/update/${unvan}`, {
-//      method: "PUT", // HTTP PUT metodu kullanılıyor
-//      headers: {
-//          "Content-Type": "application/json"
-//      },
-//      body: JSON.stringify({ newUnvan, unvan }) // Gövdeye JSON verileri ekleniyor
-//  });
-//
-//  if (!response.ok) {
-//      throw new Error("Bir hata oluştu.");
-//  }
-//
-//  console.log(response);
-//  // Gerekirse sayfayı yeniden yükleme veya başka işlemler yapılabilir
-//} catch (error) {
-//  console.error("İsteğin gönderilmesi sırasında hata oluştu:", error);
-//}
-
-/*<button onClick={() => handleUpdateClicked(user.unvan)} type="button" className="btn btn-primary" title="Düzenle">
-                    <i className="fa-solid fa-pen"></i>
-                  </button>*/

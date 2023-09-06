@@ -1,46 +1,70 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
+import { TokenContext } from "../contexts/TokenContext";
+import ProfileDropDownButton from "./ProfileDropDownButton";
 
 function Navbar() {
+  const { isVerifyLogin } = useContext(TokenContext);
   return (
     <div>
       <div className="navBar">
-        <div className="header">
-          <Link to={"/"}>
-            <img
-              className="headerLogo"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/MKK_logo.jpg"
-              width={100}
-              alt="MKK Logo"
-            ></img>
-          </Link>
+        <Link to={"/"}>
+          <img
+            className="headerLogo"
+            src="https://www.mkk.com.tr/themes/custom/mkk/logo.png"
+            alt="MKK Logo"
+            style={{ width: "200px" }}
+          ></img>
+        </Link>
 
-          <h2 className="headerName">
-            <Link to={"/"} style={{ textDecoration: "none" }}>
-              <span className="logo-text">İŞLEM YASAKLARI</span>
-            </Link>
-          </h2>
-        </div>
+        <h2 className="headerName">
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <span
+              className="logo-text"
+              style={{
+                color: "black",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "'Black Ops One'",
+              }}
+            >
+              İŞLEM YASAKLARI
+            </span>
+          </Link>
+        </h2>
 
         <div className="buttonContainer">
-          <button type="button" className="btn btn-secondary">
-            <Link to={"/sorgula"} style={{ textDecoration: "none" }}>
-              <span className="query-link">SORGULA</span>
-            </Link>
-          </button>
+          <Link to={"/sorgula"} style={{ textDecoration: "none" }}>
+            <button type="button" className="btn btn-dark btn-rounded">
+              <span className="query-link">
+                <i class="fa-solid fa-magnifying-glass"></i> SORGULA
+              </span>
+            </button>
+          </Link>
 
-          <button type="button" className="btn btn-secondary">
-            <Link to={"/ekle"} style={{ textDecoration: "none" }}>
-              <span className="add-link">EKLE</span>
+          <Link to={"/ekle"} style={{ textDecoration: "none" }}>
+            <button type="button" className="btn btn-dark btn-rounded">
+              <span className="add-link">
+                <i class="fa-solid fa-plus"></i> EKLE
+              </span>
+            </button>
+          </Link>
+          {isVerifyLogin ? (
+            <ProfileDropDownButton></ProfileDropDownButton>
+          ) : (
+            <Link
+              to={"/giris"}
+              className="giris-button"
+              style={{ textDecoration: "none" }}
+            >
+              <button type="button" className="btn btn-dark btn-rounded">
+                <span className="profile-link">
+                  <i class="fa-solid fa-right-to-bracket"></i> GİRİŞ YAP
+                </span>
+              </button>
             </Link>
-          </button>
-
-          <button type="button" className="btn btn-secondary">
-            <Link to={"/giris"} style={{ textDecoration: "none" }}>
-              <span className="profile-link">PROFİL</span>
-            </Link>
-          </button>
+          )}
         </div>
       </div>
     </div>

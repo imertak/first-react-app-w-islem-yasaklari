@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../contexts/TokenContext";
 
-function WelcomeModal(props) {
+function RegisterWelcomeModal(props) {
   const [show, setShow] = useState(false);
   const { isVerifyLogin } = useContext(TokenContext);
 
@@ -15,11 +15,11 @@ function WelcomeModal(props) {
 
   return (
     <>
-      <Button onClick={handleShow}>Giriş Yap</Button>
+      <Button onClick={handleShow}>Kayıt Ol</Button>
       {isVerifyLogin ? (
-        <Modal show={show}>
+        <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Hoşgeldin {props.userName}</Modal.Title>
+            <Modal.Title>{props.userName} Kaydınız Oluşturuldu</Modal.Title>
           </Modal.Header>
           <Modal.Body>Sorgulama Ekranına Gitmek İster Misiniz?</Modal.Body>
           <Modal.Footer>
@@ -42,7 +42,9 @@ function WelcomeModal(props) {
       ) : (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Kullanıcı Adı veya Şifre Yanlış!</Modal.Title>
+            <Modal.Title>
+              Kullanıcı Adı veya Şifre Bilgisinde Hata Var!
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>Lütfen Tekrar Deneyiniz...</Modal.Body>
           <Modal.Footer>
@@ -56,4 +58,4 @@ function WelcomeModal(props) {
   );
 }
 
-export default WelcomeModal;
+export default RegisterWelcomeModal;

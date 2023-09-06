@@ -1,21 +1,23 @@
 import React, { useContext, useState } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { TokenContext } from "../contexts/TokenContext";
 import WelcomeModal from "../components/WelcomeModal";
 import ReCaptchaComponent from "../components/ReCaptchaComponent";
+import "./Login.css";
 
 function Login() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { changeToken, assessmentResult } = useContext(TokenContext);
-
-  const handleMouseClickedRegister = () => {
-    window.location.href = "http://localhost:3000/kayit-ol";
-  };
+  const {
+    token,
+    changeToken,
+    assessmentResult,
+    changeIsVerifyLogin,
+    changeRefreshToken,
+  } = useContext(TokenContext);
 
   const handleLogin = () => {
-    
     console.log("Giriş işlemi");
     fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
@@ -35,17 +37,25 @@ function Login() {
       })
       .then((data) => {
         changeToken(data.accessToken);
-        console.log(data.accessToken);
+        changeRefreshToken(data.refreshToken);
+
+        changeIsVerifyLogin(true);
       })
       .catch((error) => {
         console.error("Login error:", error); // Handle errors
       });
+    console.log(token);
   };
 
   return (
-    <div>
-      <div>
-        <h2>Giriş Yapın</h2>
+    <div
+      style={{
+        backgroundImage:
+          "url('https://mccourt.georgetown.edu/wp-content/uploads/2021/03/data-2000x1125.jpg')",
+      }}
+    >
+      <div className="body">
+        <h2>GİRİŞ YAP</h2>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="basic-addon1">
@@ -78,11 +88,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
-
         <div>
           <ReCaptchaComponent></ReCaptchaComponent>
         </div>
-
         <button
           disabled={!assessmentResult}
           className="btn btn-primary"
@@ -90,8 +98,15 @@ function Login() {
           onClick={handleLogin}
         >
           <WelcomeModal userName={userName}></WelcomeModal>
-          </button>
-        <Link onClick={handleMouseClickedRegister}>Kayit Ol</Link>
+        </button>
+        <p style={{ color: "white" }}>
+          Henüz hesabın yok mu? <Link to={"/kayit-ol"}>Hesap aç</Link>
+        </p>
+        <div className="socialMediaIcons">
+          <i className="fa-brands fa-facebook"></i>
+          <i className="fa-brands fa-google"></i>
+          <i class="fa-brands fa-twitter"></i>
+        </div>
       </div>
     </div>
   );
