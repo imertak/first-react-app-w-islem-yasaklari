@@ -38,6 +38,7 @@ function Register() {
         console.log(data.refreshToken);
         console.log(data.accessToken);
         changeIsVerifyLogin(true);
+        localStorage.setItem("userName", `${userName}`);
       })
       .catch((error) => {
         console.error("Login error:", error); // Handle errors

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link } from "react-router-dom";
@@ -16,11 +16,12 @@ function ProfileDropDownButton() {
     changeRefreshToken("");
     changeToken("");
     changeAssestmentResult(false);
+    localStorage.setItem("userName", "");
   };
   return (
     <DropdownButton
       id="dropdown-basic-button"
-      title="isim gelecek buraya"
+      title={localStorage.getItem("userName").toUpperCase()}
       variant="dark"
     >
       <Dropdown.Item>

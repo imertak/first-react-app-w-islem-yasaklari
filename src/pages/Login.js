@@ -31,15 +31,15 @@ function Login() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Login request failed"); // Handle errors here
+          throw new Error("Login request failed");
         }
         return response.json();
       })
       .then((data) => {
         changeToken(data.accessToken);
         changeRefreshToken(data.refreshToken);
-
         changeIsVerifyLogin(true);
+        localStorage.setItem("userName", `${userName}`);
       })
       .catch((error) => {
         console.error("Login error:", error); // Handle errors

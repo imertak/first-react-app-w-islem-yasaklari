@@ -26,60 +26,45 @@ function MyProfile(props) {
 
   if (isVerifyLogin) {
     return (
-      <div class="profile-container col-lg-4 mb-5 mb-lg-0 wow fadeIn">
-        <div class="card border-0 shadow">
+      <div
+        className="profile-container"
+        style={{
+          marginTop: "10px",
+          marginBottom: "10px",
+          padding: "10px",
+          display: "flex",
+          gap: "40px",
+          border: "solid",
+          borderRadius: "10px",
+        }}
+      >
+        <div className="profile-image">
           <img
-            className="profile-image"
-            src="https://www.bootdey.com/img/Content/avatar/avatar6.png"
-            alt="..."
+            style={{ borderRadius: "50%" }}
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3wepFpVrpdhMasGyQqvn_316A7SzgRe-MEyWICNz32ox1MYZvEABRPuFXxDV49fvSAe8&usqp=CAU"
           ></img>
-          <div class="card-body p-1-9 p-xl-5">
-            <div class="mb-4">
-              <h3 class="h4 mb-0">İsmail Mert</h3>
-            </div>
-            <ul class="list-unstyled mb-4">
-              <li class="mb-3">
-                <a href="#!">
-                  <i class="far fa-envelope display-25 me-3 text-secondary"></i>
-                  mert@gmail.com
-                </a>
-              </li>
-              <li class="mb-3">
-                <a href="#!">
-                  <i class="fas fa-mobile-alt display-25 me-3 text-secondary"></i>
-                  +012 (345) 6789
-                </a>
-              </li>
-              <li>
-                <a href="#!">
-                  <i class="fas fa-map-marker-alt display-25 me-3 text-secondary"></i>
-                  205 Main Street, USA
-                </a>
-              </li>
-            </ul>
-            <ul class="social-icon-style2 ps-0">
-              <li>
-                <a href="#!" class="rounded-3">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="rounded-3">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="rounded-3">
-                  <i class="fab fa-youtube"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="rounded-3">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
+        </div>
+        <div
+          className="profile-info"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <h3>{localStorage.getItem("userName").toUpperCase()}</h3>
+          <a href="#!">
+            <i class="far fa-envelope display-25 me-3 text-secondary"></i>
+            {localStorage.getItem("userName").toLowerCase()}@gmail.com
+          </a>
+          <a href="#!">
+            <i class="fas fa-mobile-alt display-25 me-3 text-secondary"></i>
+            +012 (345) 6789
+          </a>
+          <a href="#!">
+            <i class="fas fa-map-marker-alt display-25 me-3 text-secondary"></i>
+            Sarıyer, İstanbul
+          </a>
         </div>
       </div>
     );
