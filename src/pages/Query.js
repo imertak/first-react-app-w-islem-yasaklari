@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
@@ -7,6 +7,11 @@ import LoginAlert from "../components/LoginAlert";
 
 function Query() {
   const { isVerifyLogin, users, fetchData } = useContext(TokenContext);
+  const bottomEl = useRef(null);
+
+  const scrollToBottom = () => {
+    bottomEl.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     fetchData();
@@ -16,6 +21,25 @@ function Query() {
     <div>
       {isVerifyLogin ? (
         <div className="IslemYasaklari">
+          <div
+            className="scroll-down"
+            style={{
+              zIndex: "100",
+              position: "fixed",
+              bottom: "20px",
+              right: "20px",
+            }}
+          >
+            <i
+              className="fa-solid fa-circle-down "
+              style={{
+                fontSize: "50px",
+                cursor: "pointer",
+              }}
+              onClick={scrollToBottom}
+            ></i>
+          </div>
+
           <table className="table table-striped">
             <thead>
               <tr>
@@ -48,6 +72,7 @@ function Query() {
               ))}
             </tbody>
           </table>
+          <div ref={bottomEl}></div>
         </div>
       ) : (
         <LoginAlert value={"Sorgulama"}></LoginAlert>

@@ -97,7 +97,7 @@ function Login() {
           type="submit"
           onClick={handleLogin}
         >
-          <WelcomeModal userName={userName}></WelcomeModal>
+          <WelcomeModal></WelcomeModal>
         </button>
         <p style={{ color: "white" }}>
           Henüz hesabın yok mu? <Link to={"/kayit-ol"}>Hesap aç</Link>

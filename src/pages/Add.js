@@ -2,88 +2,83 @@ import React, { useContext, useState } from "react";
 import "../App.css";
 import { TokenContext } from "../contexts/TokenContext";
 import LoginAlert from "../components/LoginAlert";
+import AddModal from "../components/AddModal";
 
 function Add() {
-  const [unvan, setUnvan] = useState("");
-  const [mkkSicilNo, setMkkSicilNo] = useState("");
-  const [kurulKararNo, setKurulKararNo] = useState("");
-  const [kurulKararTarihi, setKurulKararTarihi] = useState("");
-  const [pay, setPay] = useState("");
-  const [payKodu, setPayKodu] = useState("");
+  const [user, setuser] = useState([]);
+  //const [unvan, setUnvan] = useState("");
+  //const [mkkSicilNo, setMkkSicilNo] = useState("");
+  //const [kurulKararNo, setKurulKararNo] = useState("");
+  //const [kurulKararTarihi, setKurulKararTarihi] = useState("");
+  //const [pay, setPay] = useState("");
+  //const [payKodu, setPayKodu] = useState("");
 
-  const { token, isVerifyLogin } = useContext(TokenContext);
-
-  const handleAdding = async () => {
-    console.log("Kayıt işlemi ");
-    const response = await fetch("http://localhost:8080/api/add", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-
-      body: JSON.stringify({
-        unvan: unvan,
-        mkkSicilNo: mkkSicilNo,
-        kurulKararNo: kurulKararNo,
-        kurulKararTarihi: kurulKararTarihi,
-        pay: pay,
-        payKodu: payKodu,
-      }),
-    });
-    console.log(response);
-  };
+  const { isVerifyLogin } = useContext(TokenContext);
 
   return (
     <div>
       {isVerifyLogin ? (
-        <div>
-          <h2>İŞLEM YASAĞI EKLE</h2>
+        <div
+          className="add-container"
+          style={{
+            marginTop: "25px",
+            marginBottom: "25px",
+            width: "33%",
+            marginLeft: "33%",
+            padding: "25px",
+            border: "dashed",
+          }}
+        >
+          <h4 style={{ width: "50%", marginLeft: "25%" }}>İŞLEM YASAĞI EKLE</h4>
           <input
             type="text"
             className="form-control"
             aria-describedby="basic-addon1"
-            placeholder="Username"
+            placeholder="Unvan"
+            onChange={(e) => setuser({ ...user, unvan: e.target.value })}
           ></input>
           <input
             type="text"
-            placeholder="Unvan"
-            value={unvan}
-            onChange={(e) => setUnvan(e.target.value)}
-          />
-          <input
-            type="text"
+            className="form-control"
+            aria-describedby="basic-addon1"
             placeholder="Mkk Sicil No"
-            value={mkkSicilNo}
-            onChange={(e) => setMkkSicilNo(e.target.value)}
-          />
+            onChange={(e) => setuser({ ...user, mkkSicilNo: e.target.value })}
+          ></input>
           <input
             type="text"
+            className="form-control"
+            aria-describedby="basic-addon1"
             placeholder="Kurul Karar No"
-            value={kurulKararNo}
-            onChange={(e) => setKurulKararNo(e.target.value)}
-          />
+            onChange={(e) => setuser({ ...user, kurulKararNo: e.target.value })}
+          ></input>
           <input
             type="text"
+            className="form-control"
+            aria-describedby="basic-addon1"
             placeholder="Kurul Karar Tarihi"
-            value={kurulKararTarihi}
-            onChange={(e) => setKurulKararTarihi(e.target.value)}
+            onChange={(e) =>
+              setuser({
+                ...user,
+                kurulKararTarihi: e.target.value,
+              })
+            }
           />
           <input
             type="text"
+            className="form-control"
+            aria-describedby="basic-addon1"
             placeholder="Pay"
-            value={pay}
-            onChange={(e) => setPay(e.target.value)}
-          />
+            onChange={(e) => setuser({ ...user, pay: e.target.value })}
+          ></input>
           <input
             type="text"
+            className="form-control"
+            aria-describedby="basic-addon1"
             placeholder="Pay Kodu"
-            value={payKodu}
-            onChange={(e) => setPayKodu(e.target.value)}
-          />
+            onChange={(e) => setuser({ ...user, payKodu: e.target.value })}
+          ></input>
 
-          <button onClick={handleAdding}>Kaydet</button>
+          <AddModal user={user}></AddModal>
         </div>
       ) : (
         <LoginAlert value={"Ekleme"}></LoginAlert>

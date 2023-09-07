@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../contexts/TokenContext";
 
-function WelcomeModal(props) {
+function WelcomeModal() {
   const [show, setShow] = useState(false);
   const { isVerifyLogin } = useContext(TokenContext);
 
@@ -19,7 +19,9 @@ function WelcomeModal(props) {
       {isVerifyLogin ? (
         <Modal show={show}>
           <Modal.Header closeButton>
-            <Modal.Title>Hoşgeldin {props.userName}</Modal.Title>
+            <Modal.Title>
+              Hoşgeldin {localStorage.getItem("userName").toUpperCase()}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>Sorgulama Ekranına Gitmek İster Misiniz?</Modal.Body>
           <Modal.Footer>

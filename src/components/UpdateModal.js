@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { TokenContext } from "../contexts/TokenContext";
 
 function UpdateModal(props) {
   const [show, setShow] = useState(false);
   const [newUnvan, setNewUnvan] = useState("");
+  const { fetchData } = useContext(TokenContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,8 +37,9 @@ function UpdateModal(props) {
       if (!response.ok) {
         throw new Error("Bir hata oluştu.");
       }
-      const responseData = await response.text(); // Sunucudan dönen yanıt metni alınıyor
-      console.log(responseData); // Sunucudan gelen yanıt konsola yazdırılıyor
+      fetchData();
+      const responseData = await response.text();
+      console.log(responseData);
     } catch (error) {
       console.error("İsteğin gönderilmesi sırasında hata oluştu:", error);
     }

@@ -15,6 +15,7 @@ function ProfileDropDownButton() {
     changeIsVerifyLogin(false);
     changeRefreshToken("");
     changeToken("");
+    localStorage.setItem("accessToken", "");
     changeAssestmentResult(false);
     localStorage.setItem("userName", "");
   };

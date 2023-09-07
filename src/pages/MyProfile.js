@@ -3,7 +3,7 @@ import { TokenContext } from "../contexts/TokenContext";
 import "../App.css";
 
 function MyProfile(props) {
-  const [role, setRole] = useState("");
+  const [setRole] = useState("");
   const { token, isVerifyLogin } = useContext(TokenContext);
 
   useEffect(() => {

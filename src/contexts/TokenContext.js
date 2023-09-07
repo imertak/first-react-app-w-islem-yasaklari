@@ -1,6 +1,6 @@
 // TokenContext.js
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const TokenContext = createContext();
 
@@ -12,10 +12,7 @@ const TokenProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
   const changeToken = (newToken) => {
-    console.log("anlık token:", token);
-    setToken(newToken);
-    console.log("yeni token: ", newToken);
-    console.log("son token:", token);
+    localStorage.setItem("accessToken", `${newToken}`);
   };
 
   const changeRefreshToken = (newRefresh) => {
@@ -33,10 +30,11 @@ const TokenProvider = ({ children }) => {
   const fetchData = async () => {
     console.log(isVerifyLogin);
     console.log(token);
+    console.log(localStorage.getItem("accessToken"));
     try {
       const response = await fetch("http://localhost:8080/api/get-db", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
       if (!response.ok) {
@@ -57,7 +55,7 @@ const TokenProvider = ({ children }) => {
 
         if (response2.ok) {
           const data2 = await response2.json();
-          changeToken(data2.accessToken);
+          localStorage.setItem("accessToken", `${data2.accessToken}`);
           console.log(token);
           fetchData();
         } else {
