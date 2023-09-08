@@ -1,12 +1,10 @@
-import { useContext, useRef, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { TokenContext } from "../contexts/TokenContext";
 import { Link } from "react-router-dom";
 
 function AddModal({ user }) {
   const [show, setShow] = useState(false);
-  const { token } = useContext(TokenContext);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

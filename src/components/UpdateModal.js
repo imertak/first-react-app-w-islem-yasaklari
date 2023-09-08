@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { TokenContext } from "../contexts/TokenContext";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function UpdateModal(props) {
   const [show, setShow] = useState(false);
   const [newUnvan, setNewUnvan] = useState("");
-  const { fetchData } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -37,7 +37,7 @@ function UpdateModal(props) {
       if (!response.ok) {
         throw new Error("Bir hata oluştu.");
       }
-      fetchData();
+      store.fetchData();
       const responseData = await response.text();
       console.log(responseData);
     } catch (error) {

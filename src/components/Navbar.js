@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { TokenContext } from "../contexts/TokenContext";
 import ProfileDropDownButton from "./ProfileDropDownButton";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function Navbar() {
-  const { isVerifyLogin } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
+
   return (
     <div>
       <div className="navBar">
@@ -50,7 +51,7 @@ function Navbar() {
               </span>
             </button>
           </Link>
-          {isVerifyLogin ? (
+          {store.isVerifyLogin ? (
             <ProfileDropDownButton></ProfileDropDownButton>
           ) : (
             <Link

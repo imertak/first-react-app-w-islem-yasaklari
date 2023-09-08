@@ -2,17 +2,14 @@ import React, { useContext, useState } from "react";
 import ReCaptchaComponent from "../components/ReCaptchaComponent";
 import { TokenContext } from "../contexts/TokenContext";
 import RegisterWelcomeModal from "../components/RegisterWelcomeModal";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function Register() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const {
-    changeToken,
-    assessmentResult,
-    changeIsVerifyLogin,
-    changeRefreshToken,
-  } = useContext(TokenContext);
+  const { assessmentResult } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleRegister = () => {
     console.log("kayıt işlemi");
@@ -33,11 +30,11 @@ function Register() {
         return response.json();
       })
       .then((data) => {
-        changeToken(data.accessToken);
-        changeRefreshToken(data.refreshToken);
+        localStorage.setItem("accessToken", `${data.accessToken}`);
+        localStorage.setItem("refreshToken", `${data.refreshToken}`);
         console.log(data.refreshToken);
         console.log(data.accessToken);
-        changeIsVerifyLogin(true);
+        store.changeIsVerifyLogin(true);
         localStorage.setItem("userName", `${userName}`);
       })
       .catch((error) => {

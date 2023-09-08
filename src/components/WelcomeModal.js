@@ -3,10 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../contexts/TokenContext";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function WelcomeModal() {
   const [show, setShow] = useState(false);
-  const { isVerifyLogin } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,7 +17,7 @@ function WelcomeModal() {
   return (
     <>
       <Button onClick={handleShow}>Giriş Yap</Button>
-      {isVerifyLogin ? (
+      {store.isVerifyLogin ? (
         <Modal show={show}>
           <Modal.Header closeButton>
             <Modal.Title>

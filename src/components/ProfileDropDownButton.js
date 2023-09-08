@@ -1,24 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../contexts/TokenContext";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function ProfileDropDownButton() {
-  const {
-    changeIsVerifyLogin,
-    changeToken,
-    changeRefreshToken,
-    changeAssestmentResult,
-  } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
+
+  const { changeAssestmentResult } = useContext(TokenContext);
+
   const handleLogOutClicked = () => {
-    changeIsVerifyLogin(false);
-    changeRefreshToken("");
-    changeToken("");
+    store.changeIsVerifyLogin(false);
     localStorage.setItem("accessToken", "");
-    changeAssestmentResult(false);
+    localStorage.setItem("refreshToken", "");
     localStorage.setItem("userName", "");
+    changeAssestmentResult(false);
   };
+
   return (
     <DropdownButton
       id="dropdown-basic-button"

@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { TokenContext } from "../contexts/TokenContext";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function DeleteModal(props) {
   const [show, setShow] = useState(false);
-  const { fetchData } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -22,10 +22,10 @@ function DeleteModal(props) {
       }
 
       console.log(response);
+      store.fetchData();
     } catch (error) {
       console.error("İsteğin gönderilmesi sırasında hata oluştu:", error);
     }
-    fetchData();
     handleClose();
   };
 

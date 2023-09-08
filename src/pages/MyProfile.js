@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TokenContext } from "../contexts/TokenContext";
 import "../App.css";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function MyProfile(props) {
   const [setRole] = useState("");
-  const { token, isVerifyLogin } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   useEffect(() => {
     const fetchUserData = async (name) => {
@@ -12,7 +12,9 @@ function MyProfile(props) {
       try {
         const response = await fetch(`http://localhost:8080/user/get/${name}`, {
           method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         });
         setRole(response.roleName);
       } catch (ex) {
@@ -24,7 +26,7 @@ function MyProfile(props) {
     fetchUserData(props.name);
   }, []);
 
-  if (isVerifyLogin) {
+  if (store.isVerifyLogin) {
     return (
       <div
         className="profile-container"

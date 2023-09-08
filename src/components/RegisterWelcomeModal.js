@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-import { TokenContext } from "../contexts/TokenContext";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function RegisterWelcomeModal(props) {
   const [show, setShow] = useState(false);
-  const { isVerifyLogin } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,7 +16,7 @@ function RegisterWelcomeModal(props) {
   return (
     <>
       <Button onClick={handleShow}>Kayıt Ol</Button>
-      {isVerifyLogin ? (
+      {store.isVerifyLogin ? (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{props.userName} Kaydınız Oluşturuldu</Modal.Title>

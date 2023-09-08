@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "../App.css";
-import { TokenContext } from "../contexts/TokenContext";
 import LoginAlert from "../components/LoginAlert";
 import AddModal from "../components/AddModal";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function Add() {
   const [user, setuser] = useState([]);
@@ -13,11 +13,11 @@ function Add() {
   //const [pay, setPay] = useState("");
   //const [payKodu, setPayKodu] = useState("");
 
-  const { isVerifyLogin } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   return (
     <div>
-      {isVerifyLogin ? (
+      {store.isVerifyLogin ? (
         <div
           className="add-container"
           style={{

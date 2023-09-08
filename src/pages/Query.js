@@ -1,25 +1,32 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
-import { TokenContext } from "../contexts/TokenContext";
+
 import LoginAlert from "../components/LoginAlert";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function Query() {
-  const { isVerifyLogin, users, fetchData } = useContext(TokenContext);
+  //const { isVerifyLogin, users, fetchData } = useContext(TokenContext);
   const bottomEl = useRef(null);
+
+  //const users = useIslemYasaklariStore((state) => state.users);
+  //const fetchData = useIslemYasaklariStore((state) => state.fetchData);
+  //const isVerifyLogin = useIslemYasaklariStore((state) =>  state.isVerifyLogin);
+
+  const store = useIslemYasaklariStore();
 
   const scrollToBottom = () => {
     bottomEl.current.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    fetchData();
+    store.fetchData();
   }, []);
 
   return (
     <div>
-      {isVerifyLogin ? (
+      {store.isVerifyLogin ? (
         <div className="IslemYasaklari">
           <div
             className="scroll-down"
@@ -54,7 +61,7 @@ function Query() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, i) => (
+              {store.users.map((user, i) => (
                 <tr key={i}>
                   <th scope="row">{user.unvan}</th>
                   <td>{user.mkkSicilNo}</td>

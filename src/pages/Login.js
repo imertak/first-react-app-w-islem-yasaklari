@@ -5,17 +5,13 @@ import { TokenContext } from "../contexts/TokenContext";
 import WelcomeModal from "../components/WelcomeModal";
 import ReCaptchaComponent from "../components/ReCaptchaComponent";
 import "./Login.css";
+import useIslemYasaklariStore from "../states/IslemYasaklariStore";
 
 function Login() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {
-    token,
-    changeToken,
-    assessmentResult,
-    changeIsVerifyLogin,
-    changeRefreshToken,
-  } = useContext(TokenContext);
+  const { assessmentResult } = useContext(TokenContext);
+  const store = useIslemYasaklariStore();
 
   const handleLogin = () => {
     console.log("Giriş işlemi");
@@ -36,15 +32,15 @@ function Login() {
         return response.json();
       })
       .then((data) => {
-        changeToken(data.accessToken);
-        changeRefreshToken(data.refreshToken);
-        changeIsVerifyLogin(true);
+        localStorage.setItem("accessToken", `${data.accessToken}`);
+        localStorage.setItem("refreshToken", `${data.refreshToken}`);
+        store.changeIsVerifyLogin(true);
         localStorage.setItem("userName", `${userName}`);
       })
       .catch((error) => {
         console.error("Login error:", error); // Handle errors
       });
-    console.log(token);
+    console.log(localStorage.getItem("accessToken"));
   };
 
   return (
