@@ -1,23 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../App.css";
 import DeleteModal from "../components/DeleteModal";
 import UpdateModal from "../components/UpdateModal";
 
 import LoginAlert from "../components/LoginAlert";
 import useIslemYasaklariStore from "../states/IslemYasaklariStore";
+import CustomPagination from "../components/CustomPagination";
 
 function Query() {
-  //const { isVerifyLogin, users, fetchData } = useContext(TokenContext);
   const bottomEl = useRef(null);
 
   //const users = useIslemYasaklariStore((state) => state.users);
   //const fetchData = useIslemYasaklariStore((state) => state.fetchData);
   //const isVerifyLogin = useIslemYasaklariStore((state) =>  state.isVerifyLogin);
-
   const store = useIslemYasaklariStore();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(10);
+
+  let last = currentPage * usersPerPage;
+  let first = last - usersPerPage;
 
   const scrollToBottom = () => {
     bottomEl.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
@@ -61,7 +70,7 @@ function Query() {
               </tr>
             </thead>
             <tbody>
-              {store.users.map((user, i) => (
+              {store.users.slice(first, last).map((user, i) => (
                 <tr key={i}>
                   <th scope="row">{user.unvan}</th>
                   <td>{user.mkkSicilNo}</td>
@@ -79,7 +88,13 @@ function Query() {
               ))}
             </tbody>
           </table>
+
           <div ref={bottomEl}></div>
+          <CustomPagination
+            usersPerPage={usersPerPage}
+            totalUsers={store.users.length}
+            paginate={paginate}
+          ></CustomPagination>
         </div>
       ) : (
         <LoginAlert value={"Sorgulama"}></LoginAlert>
